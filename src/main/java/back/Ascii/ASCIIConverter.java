@@ -1,8 +1,6 @@
-package back.Asci;
+package back.Ascii;
 
-import java.io.UnsupportedEncodingException;
-
-public class ASCIConverter {
+public class ASCIIConverter {
 
     public String converterToASCI(String text){
 
