@@ -77,6 +77,7 @@ public class Hamming {
     }
 
     static void odbieranie(String str, int parity_count) //dokończyć, aktualnie trzeba podać miejsce gdzie dokonano zmian
+            //problemy ze znajdowaniem odpowiedniego kodu jaki użytkownik wpisał
     {
         int n = str.length();
         int a[] = new int[n];
