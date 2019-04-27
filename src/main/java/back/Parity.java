@@ -41,10 +41,10 @@ public class Parity {
         int ilosc=0;
         int index=0;
         int start=0;
-        int koniec=8;
+        int koniec=9;
         ArrayList<Integer> lista=new ArrayList<>();
         ErrorCount ec=new ErrorCount();
-        for(int j=0;j<str.length()/8;j++)
+        for(int j=0;j<str.length()/9;j++)
         {
             for(int i=start;i<koniec;i++) //zliczanie "1" w danym przedziale ośmiu znaków w stringu
             {
@@ -58,8 +58,8 @@ public class Parity {
                 lista.add(index); //dodajemy do listy indeksów z przekłamanymi bitami (liczymy od 0)
             }
             ilosc=0;
-            start+=8;
-            koniec+=8;
+            start+=9;
+            koniec+=9;
             index++;
         }
         ec.setDetectedErrorsIndexes(lista);
