@@ -1,7 +1,12 @@
 package back;
 
-public class Main {
-    public static void main(String[] args) {
+        import front.Gui;
+
+public class Main{
+    public static void main(String[] args)
+    {
+        Gui gui = new Gui();
+        gui.openMainWindow();
         System.out.println("randomowy text");
     }
 }
