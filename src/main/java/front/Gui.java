@@ -29,6 +29,7 @@ public class Gui
     private JButton zakłóćButton;
     private JSlider slider1;
     private JTextPane textPane1;
+    private JTextField textField3;
 
     private JLabel jLabel;
 
