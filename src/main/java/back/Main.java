@@ -6,6 +6,6 @@ package back;
         public static void main(String[] args) {
             Gui gui = new Gui();
             gui.openMainWindow();
-            //System.out.println(Parity.odbieranie("001111111000000010"));
+           //Hamming.odbieranie("1010001",3);
         }
 }
