@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class ErrorCount {
     private int allErrors = 0;
-    private int detectedErrors = 0;
-    private int correctedErrors = 0;
-    private ArrayList<Integer> errorsIndexes;
+    private ArrayList<Integer> detectedErrorsIndexes = new ArrayList<>();
+    private ArrayList<Integer> correctedErrorsIndexes = new ArrayList<>();
 
     public int getAllErrors() {
         return allErrors;
@@ -17,30 +16,30 @@ public class ErrorCount {
     }
 
     public int getDetectedErrors() {
-        return detectedErrors;
-    }
-
-    public void setDetectedErrors(int detectedErrors) {
-        this.detectedErrors = detectedErrors;
+        return detectedErrorsIndexes.size();
     }
 
     public int getUndetectedErrors() {
-        return this.allErrors - this.detectedErrors;
+        return allErrors - this.detectedErrorsIndexes.size();
     }
 
     public int getCorrectedErrors() {
-        return correctedErrors;
+        return correctedErrorsIndexes.size();
     }
 
-    public void setCorrectedErrors(int correctedErrors) {
-        this.correctedErrors = correctedErrors;
+    public ArrayList<Integer> getDetectedErrorsIndexes() {
+        return detectedErrorsIndexes;
     }
 
-    public ArrayList<Integer> getErrorsIndexes() {
-        return errorsIndexes;
+    public void setDetectedErrorsIndexes(ArrayList<Integer> detectedErrorsIndexes) {
+        this.detectedErrorsIndexes = detectedErrorsIndexes;
     }
 
-    public void setErrorsIndexes(ArrayList<Integer> errorsIndexes) {
-        this.errorsIndexes = errorsIndexes;
+    public ArrayList<Integer> getCorrectedErrorsIndexes() {
+        return correctedErrorsIndexes;
+    }
+
+    public void setCorrectedErrorsIndexes(ArrayList<Integer> correctedErrorsIndexes) {
+        this.correctedErrorsIndexes = correctedErrorsIndexes;
     }
 }
