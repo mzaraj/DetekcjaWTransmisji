@@ -1,5 +1,7 @@
 package back;
 
+import java.util.ArrayList;
+
 public class Parity {
     public static String wysylanie(String str)
     {
@@ -34,20 +36,33 @@ public class Parity {
         }
         return String.valueOf(newStr);
     }
-    public static String odbieranie(String str) //work in progress
+    public static String odbieranie(String str)
     {
         int ilosc=0;
-        for(int i=0;i<str.length();i++) //zliczanie "1"
+        int index=0;
+        int start=0;
+        int koniec=8;
+        ArrayList<Integer> lista=new ArrayList<>();
+        ErrorCount ec=new ErrorCount();
+        for(int j=0;j<str.length()/8;j++)
         {
-            if(String.valueOf(str.charAt(i)).equals("1"))
+            for(int i=start;i<koniec;i++) //zliczanie "1" w danym przedziale ośmiu znaków w stringu
             {
-                ilosc++;
+                if(String.valueOf(str.charAt(i)).equals("1"))
+                {
+                    ilosc++;
+                }
             }
+            if(ilosc%2!=0) //sprawdzamy czy ilość "1" jest nieparzysta
+            {
+                lista.add(index); //dodajemy do listy indeksów z przekłamanymi bitami (liczymy od 0)
+            }
+            ilosc=0;
+            start+=8;
+            koniec+=8;
+            index++;
         }
-        if(ilosc%2!=0)
-        {
-
-        }
+        ec.setDetectedErrorsIndexes(lista);
         return str;
     }
 }
