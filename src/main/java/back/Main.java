@@ -6,6 +6,6 @@ package back;
         public static void main(String[] args) {
             Gui gui = new Gui();
             gui.openMainWindow();
-            //System.out.println(Parity.odbieranie("0111111100000001"));
+            //System.out.println(Parity.odbieranie("001111111000000010"));
         }
 }
