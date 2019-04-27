@@ -1,26 +1,46 @@
 package back;
 
-public class ErrorCount {
-    private static int allErrors = 0;
-    private static int detectedErrors = 0;
+import java.util.ArrayList;
 
-    public static int getAllErrors() {
+public class ErrorCount {
+    private int allErrors = 0;
+    private int detectedErrors = 0;
+    private int correctedErrors = 0;
+    private ArrayList<Integer> errorsIndexes;
+
+    public int getAllErrors() {
         return allErrors;
     }
 
-    public static void setAllErrors(int allErrors) {
-        ErrorCount.allErrors = allErrors;
+    public void setAllErrors(int allErrors) {
+        this.allErrors = allErrors;
     }
 
-    public static int getDetectedErrors() {
+    public int getDetectedErrors() {
         return detectedErrors;
     }
 
-    public static void setDetectedErrors(int detectedErrors) {
-        ErrorCount.detectedErrors = detectedErrors;
+    public void setDetectedErrors(int detectedErrors) {
+        this.detectedErrors = detectedErrors;
     }
 
-    public static int getUndetectedErrors() {
-        return allErrors - detectedErrors;
+    public int getUndetectedErrors() {
+        return this.allErrors - this.detectedErrors;
+    }
+
+    public int getCorrectedErrors() {
+        return correctedErrors;
+    }
+
+    public void setCorrectedErrors(int correctedErrors) {
+        this.correctedErrors = correctedErrors;
+    }
+
+    public ArrayList<Integer> getErrorsIndexes() {
+        return errorsIndexes;
+    }
+
+    public void setErrorsIndexes(ArrayList<Integer> errorsIndexes) {
+        this.errorsIndexes = errorsIndexes;
     }
 }
