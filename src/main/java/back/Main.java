@@ -5,7 +5,8 @@ package back;
     public class Main{
         public static void main(String[] args) {
             Gui gui = new Gui();
-            gui.openMainWindow();
-           //Hamming.odbieranie("1010001",3);
+           gui.openMainWindow();
+          // Hamming.odbieranie("1010001",3);
+           // System.out.println(Hamming.wysylanie("1011"));
         }
 }

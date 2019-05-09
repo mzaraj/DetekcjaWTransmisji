@@ -3,7 +3,7 @@ package back;
 import java.util.ArrayList;
 
 public class Parity {
-    public static String wysylanie(String str)
+    public String wysylanie(String str)
     {
         int ilosc=0;
         StringBuilder newStr = new StringBuilder();
@@ -43,7 +43,6 @@ public class Parity {
         int start=0;
         int koniec=9;
         ArrayList<Integer> lista=new ArrayList<>();
-        ErrorCount ec=new ErrorCount();
         for(int j=0;j<str.length()/9;j++)
         {
             for(int i=start;i<koniec;i++) //zliczanie "1" w danym przedziale ośmiu znaków w stringu
@@ -62,7 +61,7 @@ public class Parity {
             koniec+=9;
             index++;
         }
-        ec.setDetectedErrorsIndexes(lista);
+        ErrorCount.setDetectedErrorsIndexes(lista);
         return str;
     }
 }

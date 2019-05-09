@@ -86,20 +86,12 @@ public class Hamming {
             a[n-i-1] = Integer.parseInt(String.valueOf(str.charAt(i)));
         }
         int power;
-        // We shall use the value stored in 'power' to find the correct bits to check for parity.
-
         int parity[] = new int[parity_count];
-        // 'parity' array will store the values of the parity checks.
-
         String syndrome = new String();
-        // 'syndrome' string will be used to store the integer value of error location.
-
-        for(power=0 ; power < parity_count ; power++) {
-            // We need to check the parities, the same no of times as the no of parity bits added.
-
-            for(int i=0 ; i < a.length ; i++) {
-                // Extracting the bit from 2^(power):
-
+        for(power=0 ; power < parity_count ; power++)
+        {
+            for(int i=0 ; i < a.length ; i++)
+            {
                 int k = i+1;
                 String s = Integer.toBinaryString(k);
                 int bit = ((Integer.parseInt(s))/((int) Math.pow(10, power)))%10;
@@ -111,34 +103,33 @@ public class Hamming {
             }
             syndrome = parity[power] + syndrome;
         }
-        // This gives us the parity check equation values.
-        // Using these values, we will now check if there is a single bit error and then correct it.
-
         int error_location = Integer.parseInt(syndrome, 2);
-        if(error_location != 0) {
-            System.out.println("Error is at location " + error_location + ".");
+        if(error_location != 0)
+        {
             a[error_location-1] = (a[error_location-1]+1)%2;
             System.out.println("Corrected code is:");
-            for(int i=0 ; i < a.length ; i++) {
+            for(int i=0 ; i < a.length ; i++)
+            {
                 System.out.print(a[a.length-i-1]);
             }
             System.out.println();
         }
-        else {
+        else
+        {
             System.out.println("There is no error in the received data.");
         }
-
-        // Finally, we shall extract the original data from the received (and corrected) code:
         System.out.println("Original data sent was:");
         power = parity_count-1;
-        for(int i=a.length ; i > 0 ; i--) {
-            if(Math.pow(2, power) != i) {
+        for(int i=a.length ; i > 0 ; i--)
+        {
+            if(Math.pow(2, power) != i)
+            {
                 System.out.print(a[i-1]);
             }
-            else {
+            else
+            {
                 power--;
             }
         }
-        System.out.println();
     }
 }
