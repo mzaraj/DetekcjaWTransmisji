@@ -3,7 +3,7 @@ package back;
 import java.util.ArrayList;
 
 public class Parity {
-    public String wysylanie(String str)
+    public static String wysylanie(String str)
     {
         int ilosc=0;
         StringBuilder newStr = new StringBuilder();

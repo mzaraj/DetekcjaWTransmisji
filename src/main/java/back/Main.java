@@ -4,9 +4,13 @@ package back;
 
     public class Main{
         public static void main(String[] args) {
-            Gui gui = new Gui();
+           Gui gui = new Gui();
            gui.openMainWindow();
-          // Hamming.odbieranie("1010001",3);
-           // System.out.println(Hamming.wysylanie("1011"));
+//          System.out.println(Hamming.wysylanie("10111011"));
+//          String[] strings = Hamming.odbieranie("101111010110",4);
+//          for(int i=0;i<2;i++)
+//          {
+//              System.out.println(strings[i]);
+//          }
         }
 }

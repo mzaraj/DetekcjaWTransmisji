@@ -6,11 +6,14 @@ public class Hamming {
         int n = str.length();
         int a[] = new int[n];
         StringBuilder stringBuilder= new StringBuilder();
+
         for(int i=0 ; i < n ; i++)
         {
             a[n-i-1] = Integer.parseInt(String.valueOf(str.charAt(i)));
         }
+
         int b[] = generateCode(a);
+
         for(int i=0 ; i < b.length ; i++)
         {
             stringBuilder.append(b[b.length-i-1]);
@@ -76,9 +79,11 @@ public class Hamming {
         return parity;
     }
 
-    static void odbieranie(String str, int parity_count) //dokończyć, aktualnie trzeba podać miejsce gdzie dokonano zmian
-            //problemy ze znajdowaniem odpowiedniego kodu jaki użytkownik wpisał
+    static String[] odbieranie(String str, int parity_count) //parity_count dla 8 bitów jest zawsze 4
     {
+        StringBuilder fixedMsg= new StringBuilder();
+        StringBuilder orgMsg= new StringBuilder();
+        String[] strings = new String[2];
         int n = str.length();
         int a[] = new int[n];
         for(int i=0 ; i < n ; i++)
@@ -95,8 +100,10 @@ public class Hamming {
                 int k = i+1;
                 String s = Integer.toBinaryString(k);
                 int bit = ((Integer.parseInt(s))/((int) Math.pow(10, power)))%10;
-                if(bit == 1) {
-                    if(a[i] == 1) {
+                if(bit == 1)
+                {
+                    if(a[i] == 1)
+                    {
                         parity[power] = (parity[power]+1)%2;
                     }
                 }
@@ -107,29 +114,29 @@ public class Hamming {
         if(error_location != 0)
         {
             a[error_location-1] = (a[error_location-1]+1)%2;
-            System.out.println("Corrected code is:");
             for(int i=0 ; i < a.length ; i++)
             {
-                System.out.print(a[a.length-i-1]);
+                fixedMsg.append(a[a.length-i-1]); //wiadomość po poprawieniu
             }
-            System.out.println();
         }
         else
         {
-            System.out.println("There is no error in the received data.");
+            fixedMsg.append(str); //jeśli nie ma błędu to zwracamy to co dostaliśmy
         }
-        System.out.println("Original data sent was:");
         power = parity_count-1;
         for(int i=a.length ; i > 0 ; i--)
         {
             if(Math.pow(2, power) != i)
             {
-                System.out.print(a[i-1]);
+                orgMsg.append(a[i-1]); //wysłana wiadomośc po zdekodowaniu
             }
             else
             {
                 power--;
             }
         }
+        strings[0] = String.valueOf(fixedMsg);
+        strings[1] = String.valueOf(orgMsg);
+        return strings;
     }
 }
