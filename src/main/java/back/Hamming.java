@@ -139,4 +139,24 @@ public class Hamming {
         strings[1] = String.valueOf(orgMsg);
         return strings;
     }
+    static String send(String string)
+    {
+        int start=0;
+        int end=8;
+        StringBuilder stringToSend = new StringBuilder();
+        StringBuilder tempString = new StringBuilder();
+
+        for(int i=0; i<string.length()/8;i++) //wykona się tyle razy ile jest 8 bitowych znaków
+        {
+            for(int j=start;j<end;j++) //pracuje na odpowiednim przedziale bitów
+            {
+                tempString.append(string.charAt(j)); //robi z nich string
+            }
+            stringToSend.append(wysylanie(String.valueOf(tempString))); // do zwracanej wartości dodawany jest zakodowany wynik
+            start+=8;
+            end+=8;
+            tempString.setLength(0);
+        }
+        return String.valueOf(stringToSend);
+    }
 }
