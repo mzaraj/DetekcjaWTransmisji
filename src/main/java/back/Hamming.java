@@ -79,7 +79,7 @@ public class Hamming {
         return parity;
     }
 
-    static String[] odbieranie(String str, int parity_count) //parity_count dla 8 bitów jest zawsze 4
+    static String[] odbieranie(String str)
     {
         StringBuilder fixedMsg= new StringBuilder();
         StringBuilder orgMsg= new StringBuilder();
@@ -91,9 +91,9 @@ public class Hamming {
             a[n-i-1] = Integer.parseInt(String.valueOf(str.charAt(i)));
         }
         int power;
-        int parity[] = new int[parity_count];
+        int parity[] = new int[4];
         String syndrome = new String();
-        for(power=0 ; power < parity_count ; power++)
+        for(power=0 ; power < 4 ; power++)
         {
             for(int i=0 ; i < a.length ; i++)
             {
@@ -123,7 +123,7 @@ public class Hamming {
         {
             fixedMsg.append(str); //jeśli nie ma błędu to zwracamy to co dostaliśmy
         }
-        power = parity_count-1;
+        power = 3;
         for(int i=a.length ; i > 0 ; i--)
         {
             if(Math.pow(2, power) != i)
@@ -158,5 +158,34 @@ public class Hamming {
             tempString.setLength(0);
         }
         return String.valueOf(stringToSend);
+    }
+    static String[] receive(String string)
+    {
+        String[] strings = new String[2];
+        String[] returnedStrings = new String[2];
+        int start=0;
+        int end=12;
+        StringBuilder tempString = new StringBuilder();
+        StringBuilder decodedString = new StringBuilder();
+        StringBuilder orgString = new StringBuilder();
+
+        for(int i=0; i<string.length()/12;i++) //dzielimy nasz string na 12, aby dostać tylko te zakodowane 8 bitów + 4 bity kontrolne
+        {
+            for(int j=start;j<end;j++)
+            {
+                tempString.append(string.charAt(j)); //robimy z nich string
+            }
+            strings=odbieranie(String.valueOf(tempString)); //wykonujemy na nim dekodowanie i naprawę
+            decodedString.append(strings[0]); //przypisujemy odpowiednie wartości do tablicy
+            orgString.append(strings[1]);
+            returnedStrings[0] = String.valueOf(decodedString);
+            returnedStrings[1] = String.valueOf(orgString);
+
+            start+=12;
+            end+=12;
+            tempString.setLength(0);
+            strings = new String[strings.length];
+        }
+        return returnedStrings;
     }
 }
