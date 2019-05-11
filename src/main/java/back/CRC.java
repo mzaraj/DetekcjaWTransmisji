@@ -1,8 +1,6 @@
 package back;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.BlockingDeque;
 
 public class CRC {
 
