@@ -1,6 +1,11 @@
 package back;
 
-public class Hamming {
+import java.util.ArrayList;
+
+import static java.lang.Math.abs;
+
+public class Hamming
+{
     public static String wysylanie(String str)
     {
         int n = str.length();
@@ -84,6 +89,7 @@ public class Hamming {
         StringBuilder fixedMsg= new StringBuilder();
         StringBuilder orgMsg= new StringBuilder();
         String[] strings = new String[2];
+        ArrayList<Integer> lista = ErrorCount.getDetectedErrorsIndexes();
         int n = str.length();
         int a[] = new int[n];
         for(int i=0 ; i < n ; i++)
@@ -110,9 +116,10 @@ public class Hamming {
             }
             syndrome = parity[power] + syndrome;
         }
-        int error_location = Integer.parseInt(syndrome, 2);
+        int error_location = Integer.parseInt(syndrome, 2);  //znalezienie błędu
         if(error_location != 0)
         {
+            lista.add(abs(error_location-13));
             a[error_location-1] = (a[error_location-1]+1)%2;
             for(int i=0 ; i < a.length ; i++)
             {
@@ -121,6 +128,7 @@ public class Hamming {
         }
         else
         {
+            lista.add(error_location);
             fixedMsg.append(str); //jeśli nie ma błędu to zwracamy to co dostaliśmy
         }
         power = 3;
@@ -137,6 +145,8 @@ public class Hamming {
         }
         strings[0] = String.valueOf(fixedMsg);
         strings[1] = String.valueOf(orgMsg);
+        ErrorCount.setDetectedErrorsIndexes(lista);
+        ErrorCount.setCorrectedErrorsIndexes(lista);
         return strings;
     }
     static String send(String string)
@@ -168,6 +178,7 @@ public class Hamming {
         StringBuilder tempString = new StringBuilder();
         StringBuilder decodedString = new StringBuilder();
         StringBuilder orgString = new StringBuilder();
+        ArrayList<Integer> newList = new ArrayList<>();
 
         for(int i=0; i<string.length()/12;i++) //dzielimy nasz string na 12, aby dostać tylko te zakodowane 8 bitów + 4 bity kontrolne
         {
@@ -186,6 +197,16 @@ public class Hamming {
             tempString.setLength(0);
             strings = new String[strings.length];
         }
+        ArrayList<Integer> lista = ErrorCount.getDetectedErrorsIndexes();
+        for(int i=0; i<lista.size();i++)
+        {
+            if(lista.get(i)!=0)
+            {
+                newList.add(lista.get(i)+(12 * i));
+            }
+        }
+        ErrorCount.setDetectedErrorsIndexes(newList);
+        ErrorCount.setCorrectedErrorsIndexes(newList);
         return returnedStrings;
     }
 }
