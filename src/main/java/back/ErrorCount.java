@@ -4,18 +4,9 @@ import java.util.ArrayList;
 
 public class ErrorCount {
     private static int allErrors = 0;
-    private static int maxCountErrors = 0;
     private static ArrayList<Integer> detectedErrorsIndexes = new ArrayList<>();
     private static ArrayList<Integer> correctedErrorsIndexes = new ArrayList<>();
     private static ArrayList<Integer> allErrorsIndexes = new ArrayList<>();
-
-    public static int getMaxCountErrors() {
-        return maxCountErrors;
-    }
-
-    public static void setMaxCountErrors(int maxCountErrors) {
-        ErrorCount.maxCountErrors = maxCountErrors;
-    }
 
     public static int getAllErrors() {
         return allErrors;
