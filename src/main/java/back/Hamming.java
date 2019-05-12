@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 
 public class Hamming {
+    static int zmienna = 0;
+    static ArrayList<Integer> list = new ArrayList<>();
+
     private static String wysylanie(String str) {
         int n = str.length();
         int a[] = new int[n];
@@ -97,7 +100,8 @@ public class Hamming {
         }
         if (error_location != 0) {
             lista.add(abs(error_location - 13));
-             a[error_location - 1] = (a[error_location - 1] + 1) % 2;
+            list.add(zmienna);
+            a[error_location - 1] = (a[error_location - 1] + 1) % 2;
             for (int i = 0; i < a.length; i++) {
                 fixedMsg.append(a[a.length - i - 1]); //wiadomość po poprawieniu
             }
@@ -117,6 +121,7 @@ public class Hamming {
         strings[1] = String.valueOf(orgMsg);
         ErrorCount.setDetectedErrorsIndexes(lista);
         ErrorCount.setCorrectedErrorsIndexes(lista);
+        zmienna++;
         return strings;
     }
 
@@ -172,7 +177,7 @@ public class Hamming {
                 newList.add(lista.get(i) + (12 * i));
             }
         }
-        ErrorCount.setDetectedErrorsIndexes(newList);
+        ErrorCount.setDetectedErrorsIndexes(list);
         ErrorCount.setCorrectedErrorsIndexes(newList);
         return returnedStrings;
     }
