@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class ErrorGenerator {
 
-    public String genetareError(int errorLevel, String code) {
+    public String generateError(int errorLevel, String code) {
 
         ArrayList<Integer> errorNumber = numberErrorGenerator(errorLevel, code.length());
         ErrorCount.setAllErrors(errorNumber.size());
