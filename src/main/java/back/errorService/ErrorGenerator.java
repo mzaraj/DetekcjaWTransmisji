@@ -34,11 +34,11 @@ public class ErrorGenerator {
     private ArrayList<Integer> numberErrorGenerator(int errorLevel, int length) {
 
         ArrayList<Integer> resultList = new ArrayList<>();
-        int numberOfErrors =(int) (length * ((double)errorLevel / 100));
-        if ((length*errorLevel)%100!=0){
+        int numberOfErrors = (int) (length * ((double) errorLevel / 100));
+        if ((length * errorLevel) % 100 != 0) {
             numberOfErrors++;
         }
-        System.out.println("numberOfErrors "+numberOfErrors);
+        System.out.println("numberOfErrors " + numberOfErrors);
         int randomNumber;
         Random random = new Random();
 
