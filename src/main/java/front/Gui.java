@@ -44,6 +44,11 @@ public class Gui
     private JTextPane textPane3;
     private JTextPane textPane6;
     private JTextPane textPane5;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
+    private JLabel label5;
 
     private ButtonGroup buttonGroup;
 
@@ -127,13 +132,15 @@ public class Gui
         textPane2 = new JTextPane(doc);
         textPane3 = new JTextPane(doc2);
         textPane6 = new JTextPane(doc3);
-        textPane5 = new JTextPane(doc3);
+        textPane4 = new JTextPane(doc4);
         javax.swing.text.Style style = textPane2.addStyle("Blue", null);
         javax.swing.text.Style style6 = textPane6.addStyle("Blue6", null);
+        javax.swing.text.Style style4 = textPane4.addStyle("Blue4", null);
         javax.swing.text.Style styleRed = textPane3.addStyle("Red", null);
         StyleConstants.setForeground(style, new Color(0, 120, 255));
-        StyleConstants.setForeground(style6, new Color(0, 120, 255));
-        StyleConstants.setForeground(styleRed, new Color(200, 0, 0));
+        StyleConstants.setForeground(style6, new Color(240, 0, 0));
+        StyleConstants.setForeground(style4, new Color(0, 200, 0));
+        StyleConstants.setForeground(styleRed, new Color(240, 0, 0));
     }
 
     private void clearTextPanes(ActionEvent e)
@@ -145,10 +152,26 @@ public class Gui
         textPane4.setText("");
         textPane5.setText("");
         textPane6.setText("");
+        label1.setText("");
+        label2.setText("");
+        label3.setText("");
+        label4.setText("");
+        label5.setText("");
     }
 
     private void handleZakodujButton()
     {
+        ErrorCount.setCorrectedErrorsIndexes(new ArrayList<>());
+        ErrorCount.setDetectedErrorsIndexes(new ArrayList<>());
+        ErrorCount.setAllErrors(0);
+        ErrorCount.setAllErrorsIndexes(new ArrayList<>());
+
+        label1.setText("");
+        label2.setText("");
+        label3.setText("");
+        label4.setText("");
+        label5.setText("");
+
         textToSend = textPane1.getText();
         String asciiText = new ASCIIConverter().converterToASCI(textToSend);
         System.out.println("ASCII text: " + asciiText);
@@ -205,6 +228,9 @@ public class Gui
                 }
                 break;
         }
+        label4.setText("" + textPane2.getText().length());
+        label5.setText("" + (textPane2.getText().length() - asciiText.length()));
+
     }
 
     private void handleZaklocButton()
@@ -234,7 +260,7 @@ public class Gui
         String textRepaired = "";
         if(methodType == 5) //method does correct errors
         {
-            String[] results = new String[2];
+            String[] results;
             results = Hamming.receive(textPane3.getText());
 
             textPane4.setText(results[0]);
@@ -270,23 +296,29 @@ public class Gui
             textPane5.setText(textRepaired);
             textPane6.setText(new ASCIIConverter().convertedToText(textRepaired));
 
+        }
+        if(methodType==5)
+        {
+            ArrayList<Integer> correctedIndexes = ErrorCount.getCorrectedErrorsIndexes();
+            System.out.println("cos");
 
-            if(methodType!=5)
-            {
-                ArrayList<Integer> correctedIndexes = ErrorCount.getCorrectedErrorsIndexes();
-                for(int i: correctedIndexes)
-                {
-                    doc4.setCharacterAttributes(i, 1, textPane5.getStyle("Blue6"), false);
-                }
-            }
-
-            ArrayList<Integer> detectedIndexes = ErrorCount.getDetectedErrorsIndexes();
-            for(int i: detectedIndexes)
+            for(int i: correctedIndexes)
             {
                 System.out.println(i);
-                doc3.setCharacterAttributes(i, 1, textPane6.getStyle("Blue6"), false);
+                doc4.setCharacterAttributes(i, 1, textPane4.getStyle("Blue4"), false);
             }
-
         }
+
+        ArrayList<Integer> detectedIndexes = ErrorCount.getDetectedErrorsIndexes();
+        System.out.println("cos2");
+
+        for(int i: detectedIndexes)
+        {
+            System.out.println(i);
+            doc3.setCharacterAttributes(i, 1, textPane6.getStyle("Blue6"), false);
+        }
+        label1.setText("" + ErrorCount.getAllErrors());
+        label2.setText("" + ErrorCount.getDetectedErrors());
+        label3.setText("" + ErrorCount.getUndetectedErrors());
     }
 }
