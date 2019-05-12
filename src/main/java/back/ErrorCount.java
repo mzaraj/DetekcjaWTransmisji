@@ -1,7 +1,6 @@
 package back;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class ErrorCount {
     private static int allErrors = 0;
