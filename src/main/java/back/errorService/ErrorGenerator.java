@@ -7,6 +7,10 @@ import java.util.Random;
 
 public class ErrorGenerator {
 
+    public static void main(String[] args) {
+        new ErrorGenerator().generateError(1, "010101010101");
+    }
+
     public String generateError(int errorLevel, String code) {
 
         ArrayList<Integer> errorNumber = numberErrorGenerator(errorLevel, code.length());
@@ -30,7 +34,11 @@ public class ErrorGenerator {
     private ArrayList<Integer> numberErrorGenerator(int errorLevel, int length) {
 
         ArrayList<Integer> resultList = new ArrayList<>();
-        int numberOfErrors = (int) Math.ceil(length * errorLevel / 100);
+        int numberOfErrors =(int) (length * ((double)errorLevel / 100));
+        if ((length*errorLevel)%100!=0){
+            numberOfErrors++;
+        }
+        System.out.println("numberOfErrors "+numberOfErrors);
         int randomNumber;
         Random random = new Random();
 
