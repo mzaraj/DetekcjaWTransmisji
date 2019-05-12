@@ -3,7 +3,7 @@ package back;
 import java.util.ArrayList;
 
 public class Parity {
-    public static String wysylanie(String str)
+    public static String send(String str)
     {
         int ilosc=0;
         StringBuilder newStr = new StringBuilder();
@@ -36,7 +36,7 @@ public class Parity {
         }
         return String.valueOf(newStr);
     }
-    public static String odbieranie(String str)
+    public static String receive(String str)
     {
         int ilosc=0;
         int index=0;
