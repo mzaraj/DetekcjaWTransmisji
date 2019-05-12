@@ -12,13 +12,14 @@ public class CRC {
     private static final int BLOCK_LENGTH = 8;
     private static final int TOTAL_LENGTH = BLOCK_LENGTH + 16;
 
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
         CRC crc = new CRC();
         String data = "11111000101010101010101010101010";
         System.out.println("Data before encryption: " + data);
-        String sentMessage = crc.send(data, CRC16);
+        String sentMessage = crc.send(data, SDLCREVERSE);
         System.out.println("Sent data: " + sentMessage);
-        String receivedMessage = crc.receive("111010001000001000010011101010100000001111111100101010100000001111111100101010100000001111111100", CRC16);
+//        String receivedMessage = crc.receive("111010001000001000010011101010100000001111111100101010100000001111111100101010100000001111111100", CRC16);
+        String receivedMessage = crc.receive(sentMessage, CRC16);
         System.out.println("Decrypted data: " + receivedMessage);
         if (data.equals(receivedMessage))
             System.out.println("Data matches");
@@ -26,7 +27,7 @@ public class CRC {
             System.out.println("Data different");
         System.out.println(ErrorCount.getDetectedErrorsIndexes().toString());
     }
-
+*/
     public String send(String receivedData, int method) {
 
         String allData = receivedData;

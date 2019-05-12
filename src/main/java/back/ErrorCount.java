@@ -1,11 +1,13 @@
 package back;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class ErrorCount {
     private static int allErrors = 0;
     private static ArrayList<Integer> detectedErrorsIndexes = new ArrayList<>();
     private static ArrayList<Integer> correctedErrorsIndexes = new ArrayList<>();
+    private static Set<Integer> allErrorsIndexes;
 
     public static int getAllErrors() {
         return allErrors;
@@ -41,5 +43,13 @@ public class ErrorCount {
 
     public static void setCorrectedErrorsIndexes(ArrayList<Integer> correctedErrorsIndexes) {
         ErrorCount.correctedErrorsIndexes = correctedErrorsIndexes;
+    }
+
+    public static Set<Integer> getAllErrorsIndexes() {
+        return allErrorsIndexes;
+    }
+
+    public static void setAllErrorsIndexes(Set<Integer> allErrorsIndexes) {
+        ErrorCount.allErrorsIndexes = allErrorsIndexes;
     }
 }
