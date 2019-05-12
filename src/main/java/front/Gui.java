@@ -37,6 +37,8 @@ public class Gui
     private JTextPane textPane3;
     private JTextPane textPane5;
 
+    private ButtonGroup buttonGroup;
+
     private JLabel jLabel;
 
     private String textToSend = "";
@@ -59,13 +61,19 @@ public class Gui
         zaklocButton.addActionListener(e -> handleZaklocButton());
         wyslijButton.addActionListener(e -> handleWyslijButton());
 
-        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup = new ButtonGroup();
         buttonGroup.add(radioButton1);
+        radioButton1.setActionCommand("1");
         buttonGroup.add(radioButton2);
+        radioButton2.setActionCommand("2");
         buttonGroup.add(radioButton3);
+        radioButton3.setActionCommand("3");
         buttonGroup.add(radioButton4);
+        radioButton4.setActionCommand("4");
         buttonGroup.add(radioButton5);
+        radioButton5.setActionCommand("5");
         buttonGroup.add(radioButton6);
+        radioButton6.setActionCommand("6");
         radioButton1.setSelected(true);
     }
 
@@ -90,7 +98,7 @@ public class Gui
 
     private void createUIComponents()
     {
-        doc = (StyledDocument) new DefaultStyledDocument();
+        doc = new DefaultStyledDocument();
         textPane4 = new JTextPane(doc);
         textPane4.setText("Lorem ipsum dolor sit amet");
         javax.swing.text.Style style = textPane4.addStyle("Red", null);
@@ -111,7 +119,34 @@ public class Gui
 
     private void handleZaklocButton()
     {
-        doc.setCharacterAttributes(1, 1, textPane4.getStyle("Red"), false);
+        int value = slider1.getValue();
+
+        switch(buttonGroup.getSelection().getActionCommand())
+        {
+            case "1":
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+            case "6":
+                break;
+            default:
+                break;
+        }
+
+        int[] tablica = {1,4,6,9,11,15};
+
+        for(int i : tablica)
+        {
+            doc.setCharacterAttributes(i, 1, textPane4.getStyle("Red"), false);
+        }
+
+        //doc.setCharacterAttributes(1, 1, textPane4.getStyle("Red"), false);
 
     }
 
