@@ -6,7 +6,7 @@ import static java.lang.Math.abs;
 
 public class Hamming
 {
-    public static String wysylanie(String str)
+    private static String wysylanie(String str)
     {
         int n = str.length();
         int a[] = new int[n];
@@ -27,7 +27,7 @@ public class Hamming
         return String.valueOf(stringBuilder);
     }
 
-    static int[] generateCode(int a[])
+    private static int[] generateCode(int a[])
     {
         int b[];
         int i=0, parity_count=0 ,j=0, k=0;
@@ -62,7 +62,7 @@ public class Hamming
         return b;
     }
 
-    static int getParity(int b[], int power)
+    private static int getParity(int b[], int power)
     {
         int parity = 0;
         for(int i=0 ; i < b.length ; i++)
@@ -84,7 +84,7 @@ public class Hamming
         return parity;
     }
 
-    static String[] odbieranie(String str)
+    private static String[] odbieranie(String str)
     {
         StringBuilder fixedMsg= new StringBuilder();
         StringBuilder orgMsg= new StringBuilder();
@@ -149,7 +149,7 @@ public class Hamming
         ErrorCount.setCorrectedErrorsIndexes(lista);
         return strings;
     }
-    static String send(String string)
+    public static String send(String string)
     {
         int start=0;
         int end=8;
@@ -169,7 +169,7 @@ public class Hamming
         }
         return String.valueOf(stringToSend);
     }
-    static String[] receive(String string)
+    public static String[] receive(String string)
     {
         String[] strings = new String[2];
         String[] returnedStrings = new String[2];
