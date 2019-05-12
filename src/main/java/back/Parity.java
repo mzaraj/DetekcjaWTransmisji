@@ -42,6 +42,7 @@ public class Parity {
         int index=0;
         int start=0;
         int koniec=9;
+        StringBuilder stringBuilder = new StringBuilder();
         ArrayList<Integer> lista=new ArrayList<>();
         for(int j=0;j<str.length()/9;j++)
         {
@@ -56,12 +57,16 @@ public class Parity {
             {
                 lista.add(index); //dodajemy do listy indeksów z przekłamanymi bitami (liczymy od 0)
             }
+            for(int i=start+1;i<koniec;i++)
+            {
+                stringBuilder.append(str.charAt(i));
+            }
             ilosc=0;
             start+=9;
             koniec+=9;
             index++;
         }
         ErrorCount.setDetectedErrorsIndexes(lista);
-        return str;
+        return String.valueOf(stringBuilder);
     }
 }
