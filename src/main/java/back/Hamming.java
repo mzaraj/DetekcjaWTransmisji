@@ -92,6 +92,9 @@ public class Hamming {
             syndrome = parity[power] + syndrome;
         }
         int error_location = Integer.parseInt(syndrome, 2);  //znalezienie błędu
+        if (error_location > 12) {
+            error_location = Integer.parseInt(syndrome.substring(0, 11), 2);
+        }
         if (error_location != 0) {
             lista.add(abs(error_location - 13));
             a[error_location - 1] = (a[error_location - 1] + 1) % 2;

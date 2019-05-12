@@ -16,6 +16,7 @@ public class ErrorGenerator {
         ArrayList<Integer> errorNumber = numberErrorGenerator(errorLevel, code.length());
         ErrorCount.setAllErrors(errorNumber.size());
         ErrorCount.setAllErrorsIndexes(errorNumber);
+        ErrorCount.setMaxCountErrors(code.length());
 
         return makeMistake(errorNumber, code);
     }

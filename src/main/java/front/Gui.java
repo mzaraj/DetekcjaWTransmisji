@@ -10,7 +10,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 */
 
+import back.*;
+import back.Ascii.ASCIIConverter;
+import back.errorService.ErrorGenerator;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.text.DefaultStyledDocument;
@@ -35,6 +42,7 @@ public class Gui
     private JTextPane textPane1;
     private JTextPane textPane2;
     private JTextPane textPane3;
+    private JTextPane textPane6;
     private JTextPane textPane5;
 
     private ButtonGroup buttonGroup;
@@ -44,6 +52,9 @@ public class Gui
     private String textToSend = "";
 
     private StyledDocument doc;
+    private StyledDocument doc2;
+
+    private int methodType;
 
     public Gui()
     {
@@ -75,6 +86,15 @@ public class Gui
         buttonGroup.add(radioButton6);
         radioButton6.setActionCommand("6");
         radioButton1.setSelected(true);
+
+//        radioButton1.addActionListener(e -> System.out.println("Action Command is: " + e.getActionCommand()));
+        radioButton1.addActionListener(this::clearTextPanes);
+        radioButton2.addActionListener(this::clearTextPanes);
+        radioButton3.addActionListener(this::clearTextPanes);
+        radioButton4.addActionListener(this::clearTextPanes);
+        radioButton5.addActionListener(this::clearTextPanes);
+        radioButton6.addActionListener(this::clearTextPanes);
+
     }
 
     public void openMainWindow()
@@ -99,52 +119,103 @@ public class Gui
     private void createUIComponents()
     {
         doc = new DefaultStyledDocument();
-        textPane4 = new JTextPane(doc);
-        textPane4.setText("Lorem ipsum dolor sit amet");
-        javax.swing.text.Style style = textPane4.addStyle("Red", null);
-        StyleConstants.setForeground(style, Color.RED);
-        doc.setCharacterAttributes(1, 1, textPane4.getStyle("Red"), false);
-        doc.setCharacterAttributes(5, 1, textPane4.getStyle("Red"), false);
-        doc.setCharacterAttributes(9, 1, textPane4.getStyle("Red"), false);
-        doc.setCharacterAttributes(16, 1, textPane4.getStyle("Red"), false);
-        doc.setCharacterAttributes(22, 1, textPane4.getStyle("Red"), false);
+        doc2 = new DefaultStyledDocument();
+        textPane2 = new JTextPane(doc);
+        textPane3 = new JTextPane(doc2);
+        javax.swing.text.Style style = textPane2.addStyle("Blue", null);
+        javax.swing.text.Style styleRed = textPane3.addStyle("Red", null);
+        StyleConstants.setForeground(style, new Color(0, 120, 255));
+        StyleConstants.setForeground(styleRed, new Color(200, 0, 0));
+    }
+
+    private void clearTextPanes(ActionEvent e)
+    {
+        //if()
+        System.out.println("Action Command is: " + e.getActionCommand());
+        textPane2.setText("");
+        textPane3.setText("");
+        textPane4.setText("");
+        textPane5.setText("");
+        textPane6.setText("");
     }
 
     private void handleZakodujButton()
     {
         textToSend = textPane1.getText();
-        textPane2.setText(textToSend);
-        textPane3.setText(textToSend);
+        String asciiText = new ASCIIConverter().converterToASCI(textToSend);
+        System.out.println("ASCII text: " + asciiText);
+        methodType = Integer.parseInt(buttonGroup.getSelection().getActionCommand());
+        String convertedText = "";
+        switch(methodType)
+        {
+            case 1:
+                convertedText = new CRC().send(asciiText, CRC.CRC16);
+                break;
+            case 2:
+                convertedText = new CRC().send(asciiText, CRC.CRC16REVERSE);
+                break;
+            case 3:
+                convertedText = new CRC().send(asciiText, CRC.SDLC);
+                break;
+            case 4:
+                convertedText = new CRC().send(asciiText, CRC.SDLCREVERSE);
+                break;
+            case 5:
+                convertedText = Hamming.send(asciiText);
+                break;
+            case 6:
+                convertedText = Parity.send(asciiText);
+                break;
+            default:
+                System.out.println("Niepoprawny tryb wykryty!");
+                break;
+        }
+        textPane2.setText(convertedText);
+        textPane3.setText(convertedText);
+
+        switch(methodType)
+        {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                for(int i =0 ;i<convertedText.length();i+=24)
+                {
+                    doc.setCharacterAttributes(i+8, 16, textPane2.getStyle("Blue"), false);
+                }
+                break;
+            case 5:
+                for(int i =0 ;i<convertedText.length();i+=12)
+                {
+                    doc.setCharacterAttributes(i+8, 4, textPane2.getStyle("Blue"), false);
+                }
+                break;
+            case 6:
+                for(int i =0 ;i<convertedText.length();i+=9)
+                {
+                    doc.setCharacterAttributes(i+8, 1, textPane2.getStyle("Blue"), false);
+                }
+                break;
+        }
     }
 
     private void handleZaklocButton()
     {
-        int value = slider1.getValue();
+        textPane3.setText(new ErrorGenerator().generateError(slider1.getValue(), textPane3.getText()));
 
-        switch(buttonGroup.getSelection().getActionCommand())
+        ArrayList<Integer> listaBledow = ErrorCount.getAllErrorsIndexes();
+
+        for(int i: listaBledow)
         {
-            case "1":
-                break;
-            case "2":
-                break;
-            case "3":
-                break;
-            case "4":
-                break;
-            case "5":
-                break;
-            case "6":
-                break;
-            default:
-                break;
+            doc2.setCharacterAttributes(i, 1, textPane3.getStyle("Red"), false);
         }
 
-        int[] tablica = {1,4,6,9,11,15};
-
-        for(int i : tablica)
-        {
-            doc.setCharacterAttributes(i, 1, textPane4.getStyle("Red"), false);
-        }
+//        int[] tablica = {1,4,6,9,11,15};
+//
+//        for(int i : tablica)
+//        {
+//            doc.setCharacterAttributes(i, 1, textPane5.getStyle("Red"), false);
+//        }
 
         //doc.setCharacterAttributes(1, 1, textPane4.getStyle("Red"), false);
 
@@ -152,8 +223,44 @@ public class Gui
 
     private void handleWyslijButton()
     {
+        String textRepaired = "";
+        if(methodType == 5) //method does correct errors
+        {
+            String[] results = new String[2];
+            results = Hamming.receive(textPane3.getText());
 
+            textPane4.setText(results[0]);
+            textPane5.setText(results[1]);
+            textPane6.setText(new ASCIIConverter().convertedToText(results[1]));
+
+
+        }
+        else //method does NOT correct errors
+        {
+            switch(methodType)
+            {
+                case 1:
+                    textRepaired = new CRC().receive(textPane3.getText(), CRC.CRC16);
+                    break;
+                case 2:
+                    textRepaired = new CRC().receive(textPane3.getText(), CRC.CRC16REVERSE);
+                    break;
+                case 3:
+                    textRepaired = new CRC().receive(textPane3.getText(), CRC.SDLC);
+                    break;
+                case 4:
+                    textRepaired = new CRC().receive(textPane3.getText(), CRC.SDLCREVERSE);
+                    break;
+                case 6:
+                    textRepaired = Parity.receive(textPane3.getText());
+                    break;
+                default:
+                    System.out.println("Niepoprawny tryb wykryty!");
+                    break;
+            }
+            textPane4.setText(textPane3.getText());
+            textPane5.setText(textRepaired);
+            textPane6.setText(new ASCIIConverter().convertedToText(textRepaired));
+        }
     }
 }
-
-
