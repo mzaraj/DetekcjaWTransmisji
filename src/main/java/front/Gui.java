@@ -53,6 +53,8 @@ public class Gui
 
     private StyledDocument doc;
     private StyledDocument doc2;
+    private StyledDocument doc3;
+    private StyledDocument doc4;
 
     private int methodType;
 
@@ -120,11 +122,17 @@ public class Gui
     {
         doc = new DefaultStyledDocument();
         doc2 = new DefaultStyledDocument();
+        doc3 = new DefaultStyledDocument();
+        doc4 = new DefaultStyledDocument();
         textPane2 = new JTextPane(doc);
         textPane3 = new JTextPane(doc2);
+        textPane6 = new JTextPane(doc3);
+        textPane5 = new JTextPane(doc3);
         javax.swing.text.Style style = textPane2.addStyle("Blue", null);
+        javax.swing.text.Style style6 = textPane6.addStyle("Blue6", null);
         javax.swing.text.Style styleRed = textPane3.addStyle("Red", null);
         StyleConstants.setForeground(style, new Color(0, 120, 255));
+        StyleConstants.setForeground(style6, new Color(0, 120, 255));
         StyleConstants.setForeground(styleRed, new Color(200, 0, 0));
     }
 
@@ -201,7 +209,7 @@ public class Gui
 
     private void handleZaklocButton()
     {
-        textPane3.setText(new ErrorGenerator().generateError(slider1.getValue(), textPane3.getText()));
+        textPane3.setText(new ErrorGenerator().generateError(slider1.getValue(), textPane2.getText()));
 
         ArrayList<Integer> listaBledow = ErrorCount.getAllErrorsIndexes();
 
@@ -261,6 +269,24 @@ public class Gui
             textPane4.setText(textPane3.getText());
             textPane5.setText(textRepaired);
             textPane6.setText(new ASCIIConverter().convertedToText(textRepaired));
+
+
+            if(methodType!=5)
+            {
+                ArrayList<Integer> correctedIndexes = ErrorCount.getCorrectedErrorsIndexes();
+                for(int i: correctedIndexes)
+                {
+                    doc4.setCharacterAttributes(i, 1, textPane5.getStyle("Blue6"), false);
+                }
+            }
+
+            ArrayList<Integer> detectedIndexes = ErrorCount.getDetectedErrorsIndexes();
+            for(int i: detectedIndexes)
+            {
+                System.out.println(i);
+                doc3.setCharacterAttributes(i, 1, textPane6.getStyle("Blue6"), false);
+            }
+
         }
     }
 }

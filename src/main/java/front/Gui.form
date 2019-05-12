@@ -241,10 +241,10 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="1" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <majorTickSpacing value="5"/>
-                      <maximum value="25"/>
-                      <minimum value="5"/>
-                      <minorTickSpacing value="5"/>
+                      <majorTickSpacing value="1"/>
+                      <maximum value="5"/>
+                      <minimum value="1"/>
+                      <minorTickSpacing value="1"/>
                       <paintLabels value="true"/>
                       <paintTicks value="true"/>
                       <paintTrack value="true"/>
@@ -367,7 +367,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="ddeea" class="javax.swing.JTextPane" binding="textPane6" default-binding="true">
+                  <component id="ddeea" class="javax.swing.JTextPane" binding="textPane6" custom-create="true" default-binding="true">
                     <constraints/>
                     <properties>
                       <editable value="false"/>
