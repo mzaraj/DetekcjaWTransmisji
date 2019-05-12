@@ -12,22 +12,7 @@ public class CRC {
     private static final int BLOCK_LENGTH = 8;
     private static final int TOTAL_LENGTH = BLOCK_LENGTH + 16;
 
- /*   public static void main(String[] args) {
-        CRC crc = new CRC();
-        String data = "11111000101010101010101010101010";
-        System.out.println("Data before encryption: " + data);
-        String sentMessage = crc.send(data, SDLCREVERSE);
-        System.out.println("Sent data: " + sentMessage);
-//        String receivedMessage = crc.receive("111010001000001000010011101010100000001111111100101010100000001111111100101010100000001111111100", CRC16);
-        String receivedMessage = crc.receive(sentMessage, CRC16);
-        System.out.println("Decrypted data: " + receivedMessage);
-        if (data.equals(receivedMessage))
-            System.out.println("Data matches");
-        else
-            System.out.println("Data different");
-        System.out.println(ErrorCount.getDetectedErrorsIndexes().toString());
-    }
-*/
+
     public String send(String receivedData, int method) {
 
         String allData = receivedData;
@@ -54,12 +39,7 @@ public class CRC {
         }
 
         StringBuilder sb = new StringBuilder();
-/*        //do testów
-        for (int i = 0; i < dataBytes; i++) {
-            sb.append(Arrays.toString(data[i]));
-            sb.append("\n");
-        }*/
-        //ostateczne
+
         for (int block[] : crc) {
             for (int digit : block) {
                 sb.append(digit);
@@ -80,16 +60,14 @@ public class CRC {
         ArrayList<Integer> detectedErrors = new ArrayList<>();
 
         for (int i = 0; i < dataBytes; i++) {
-            System.out.println("Data byte " + (i + 1));
             int remainder[] = generateCRC(data[i], method, false);
             for (int j = 0; j < remainder.length; j++) {
                 if (remainder[j] != 0) {
-                    System.out.println("Error!");
                     detectedErrors.add(i);
                     break;
                 }
-                if (j == remainder.length - 1)
-                    System.out.println("No errors");
+//                if (j == remainder.length - 1)
+//                    System.out.println("No errors");
             }
         }
         ErrorCount.setDetectedErrorsIndexes(detectedErrors);
@@ -125,30 +103,23 @@ public class CRC {
         }
         int remainder[] = new int[TOTAL_LENGTH];
         System.arraycopy(divident, 0, remainder, 0, divident.length);
-//        System.out.println("rem: " + Arrays.toString(remainder));
 
-        //divide
         int current = 0;
         do {
             for (int i = 0; i < generator.length; i++)
                 remainder[current + i] = remainder[current + i] ^ generator[i];
 
-//            System.out.println("rem 2: " + Arrays.toString(remainder));
             while (remainder[current] == 0 && current != remainder.length - 1)
                 current++;
 
         } while (remainder.length - current >= generator.length);
 
         if (toCRC) {
-//        System.out.println("rem3: " + Arrays.toString(remainder));
             for (int i = 0; i < divident.length; i++) {
                 crc[i] = divident[i] ^ remainder[i];
-//            System.out.println("crc[" + i + "] = " + divident[i] + "^" + remainder[i] + "=" + crc[i]);
             }
-//        System.out.println("crc " + Arrays.toString(crc));
             return crc;
         } else {
-//            System.out.println("ret rem");
             return remainder;
         }
     }
