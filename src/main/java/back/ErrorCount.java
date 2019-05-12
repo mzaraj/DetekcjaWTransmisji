@@ -7,7 +7,7 @@ public class ErrorCount {
     private static int allErrors = 0;
     private static ArrayList<Integer> detectedErrorsIndexes = new ArrayList<>();
     private static ArrayList<Integer> correctedErrorsIndexes = new ArrayList<>();
-    private static Set<Integer> allErrorsIndexes;
+    private static ArrayList<Integer> allErrorsIndexes = new ArrayList<>();
 
     public static int getAllErrors() {
         return allErrors;
@@ -45,11 +45,11 @@ public class ErrorCount {
         ErrorCount.correctedErrorsIndexes = correctedErrorsIndexes;
     }
 
-    public static Set<Integer> getAllErrorsIndexes() {
+    public static ArrayList<Integer> getAllErrorsIndexes() {
         return allErrorsIndexes;
     }
 
-    public static void setAllErrorsIndexes(Set<Integer> allErrorsIndexes) {
+    public static void setAllErrorsIndexes(ArrayList<Integer> allErrorsIndexes) {
         ErrorCount.allErrorsIndexes = allErrorsIndexes;
     }
 }
