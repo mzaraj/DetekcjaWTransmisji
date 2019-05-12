@@ -257,6 +257,14 @@ public class Gui
 
     private void handleWyslijButton()
     {
+        //ostateczne zliczanie błędów i kolorowanie
+        ErrorCount.countErrors(textPane2.getText(), textPane3.getText());
+        ArrayList<Integer> listaBledow = ErrorCount.getAllErrorsIndexes();
+        for(int i: listaBledow)
+        {
+            doc2.setCharacterAttributes(i, 1, textPane3.getStyle("Red"), false);
+        }
+
         String textRepaired = "";
         if(methodType == 5) //method does correct errors
         {

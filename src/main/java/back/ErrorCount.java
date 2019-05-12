@@ -51,4 +51,20 @@ public class ErrorCount {
     public static void setAllErrorsIndexes(ArrayList<Integer> allErrorsIndexes) {
         ErrorCount.allErrorsIndexes = allErrorsIndexes;
     }
+
+    public static void countErrors(String oldString, String newString) {
+        allErrors = 0;
+        allErrorsIndexes = new ArrayList<>();
+        if (!oldString.equals(newString)) {
+            if (oldString.length() == newString.length()) {
+                for (int i = 0; i < oldString.length(); i++) {
+                    if (oldString.charAt(i) != newString.charAt(i)) {
+                        allErrors++;
+                        allErrorsIndexes.add(i);
+                    }
+                }
+            } else
+                System.out.println("Wiadomości różnej długości");
+        }
+    }
 }

@@ -12,10 +12,6 @@ public class CRC {
     private static final int BLOCK_LENGTH = 8;
     private static final int TOTAL_LENGTH = BLOCK_LENGTH + 16;
 
-    public static void main(String[] args) {
-
-    }
-
     public String send(String receivedData, int method) {
 
         String allData = receivedData;

@@ -7,10 +7,6 @@ import java.util.Random;
 
 public class ErrorGenerator {
 
-    public static void main(String[] args) {
-        new ErrorGenerator().generateError(1, "010101010101");
-    }
-
     public String generateError(int errorLevel, String code) {
 
         ArrayList<Integer> errorNumber = numberErrorGenerator(errorLevel, code.length());
