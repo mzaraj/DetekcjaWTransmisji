@@ -146,6 +146,7 @@ public class Hamming {
     }
 
     public static String[] receive(String string) {
+        zmienna = 0;
         String[] strings = new String[2];
         String[] returnedStrings = new String[2];
         int start = 0;
