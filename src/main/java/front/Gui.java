@@ -216,9 +216,9 @@ public class Gui
                 }
                 break;
             case 5:
-                for(int i =0 ;i<convertedText.length();i+=12)
+                for(int i =1 ;i<convertedText.length();i*=2)
                 {
-                    doc.setCharacterAttributes(i+8, 4, textPane2.getStyle("Blue"), false);
+                    doc.setCharacterAttributes(i-1, 1, textPane2.getStyle("Blue"), false);
                 }
                 break;
             case 6:
